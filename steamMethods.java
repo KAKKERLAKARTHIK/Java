@@ -1,4 +1,5 @@
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,15 +36,47 @@ public class steamMethods {
         int sumResult = Arrays.stream(array).reduce(0, Integer::sum);
         System.out.println(sumResult);
     }
+  
+    //sorting method
+    static void sort(int []array){
+     List <Integer> sortedArray = Arrays.stream(array).boxed().sorted().collect(Collectors.toList());
+     System.out.println(sortedArray);
+    }
 
+    // distinct method
+    static void getUnqValues(int []array){
+        List <Integer> unq = Arrays.stream(array).boxed().distinct().sorted().filter(val -> val!=1).collect(Collectors.toList());
+        System.out.println(unq);
+    }
+    //collect
+    static void collectValues(String []values){
+        List <String> collect = Arrays.stream(values).sorted().filter(val -> val!= "Karthik").collect(Collectors.toList());
+        System.out.println(collect);
+    }
+// macthing condtions
+    static void matchingConditions(int[] array) {
+
+        boolean anyMatch = Arrays.stream(array).allMatch(n -> n>4);
+
+        boolean allEven = List.of(2, 4).stream()
+                .allMatch(n -> n % 2 == 0); 
+
+        boolean noneNegative = List.of(1, 2).stream()
+                .noneMatch(n -> n < 0); // true
+                System.out.println(anyMatch + " "+ allEven +" " + noneNegative);
+    }
     public static void main(String[] args) {
-        String[] names = { "Karthik", "Kavaya", "Khaleja", "Lavan", "Amar" };
+        String[] names = { "Karthik", "Kavaya", "zaaajf", "Lavan", "Amar" };
         String[][] values = { { "1", "2", "3" }, { "4", "5", "6" } };
-        int[] intValues = { 1, 2, 3, 4, 5, 6 };
+        int[] intValues = { 7,8,1, 2, 2,3,3, 4, 5, 6,7,8 };
         filter(names);
         mapMethod(names);
         flatMap(values);
         forEachMethod(names);
         reduceMethod(intValues);
+        sort(intValues);
+        getUnqValues(intValues);
+        collectValues(names);
+        matchingConditions(intValues);
     }
 }
